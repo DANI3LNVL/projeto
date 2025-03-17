@@ -1,0 +1,250 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+* {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --azul: #25284b;
+  --branco: #ffffff;
+  --cinza: #f5f5f5;
+  --preto1: #222;
+  --preto2: #999;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.navegacao {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: var(--azul);
+  border-left: 10px solid var(--azul);
+  transition: 0.5s;
+  overflow: hidden;
+}
+.navegacao.ativa {
+  width: 80px;
+}
+
+.navegacao ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.navegacao ul li {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.navegacao ul li:hover,
+.navegacao ul li.hovered {
+  background-color: var(--branco);
+}
+
+.navegacao ul li:nth-child(1) {
+  margin-bottom: 40px;
+  pointer-events: none;
+}
+
+.navegacao ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: var(--branco);
+}
+.navegacao ul li:hover a,
+.navegacao ul li.hovered a {
+  color: var(--azul);
+}
+
+.navegacao ul li a .icone {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 75px;
+  text-align: center;
+}
+.navegacao ul li a .icone ion-icon {
+  font-size: 1.75rem;
+}
+
+.navegacao ul li a .titulo {
+  position: relative;
+  display: block;
+  padding: 0 10px;
+  height: 60px;
+  line-height: 60px;
+  text-align: start;
+  white-space: nowrap;
+}
+
+.principal {
+  position: absolute;
+  width: calc(100% - 300px);
+  left: 300px;
+  min-height: 100vh;
+  background: var(--branco);
+  transition: 0.5s;
+}
+.principal.ativa {
+  width: calc(100% - 80px);
+  left: 80px;
+}
+
+.barraSuperior {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.alternar {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.grafico-estoque {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.grafico-estoque h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #25284b;
+}
+
+.tabela-estoque {
+  margin-top: 20px;
+}
+
+.tabela-estoque h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.tabela-estoque table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-estoque th,
+.tabela-estoque td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabela-estoque th {
+  background-color: #4a63e7;
+  color: white;
+}
+
+.tabela-estoque tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.notificacoes {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.notificacoes h2 {
+  color: #25284b;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.notificacoes ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notificacoes li {
+  padding: 5px;
+  font-size: 14px;
+  color: #d9534f;
+  border-bottom: 1px solid #ddd;
+}
+
+.notificacoes li:last-child {
+  border: none;
+}
+
+.atalhos {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.atalhos button {
+  background-color: #4a63e7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+
+.atalhos button:hover {
+  background-color: #3749ba;
+}
+
+@media (max-width: 991px) {
+  .navegacao {
+    left: -300px;
+  }
+  .navegacao.ativa {
+    width: 300px;
+    left: 0;
+  }
+  .principal {
+    width: 100%;
+    left: 0;
+  }
+  .principal.ativa {
+    left: 300px;
+  }
+}

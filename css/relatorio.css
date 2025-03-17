@@ -1,0 +1,22 @@
+
+.only-print{
+    display: none !important;
+    text-align: left;
+    margin: 0 auto;
+    top: 10%;
+    position: absolute;
+    }
+
+
+@media print{
+
+    .no-print{
+        display: none !important;
+    }
+
+    .only-print{
+        display: block !important;
+    }
+
+
+}

@@ -1,0 +1,86 @@
+<?php
+    include_once("session.php");
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle</title>
+    <link rel="stylesheet" href="css/style.dashborde.css">
+    <link rel="stylesheet" href="css/listagem-fornecedores.css">
+    <link rel="stylesheet" href="css/resultado.css">
+    <link href="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="navegacao">
+            <nav>
+            <?php
+                include_once("lista.html");
+            ?>
+            </div>
+        </nav>
+    </div>
+    <div class="principal">
+    <div class="barraSuperior">
+        <div class="alternar" style="cursor: default;">
+            <ion-icon name="menu-outline" style="display: none;"></ion-icon>
+        </div>
+    </div>
+    <div class="pesquisa">
+        <form action="tela-listagem-fornecedores.php" method="post">
+            <input type="text" name="resultado" placeholder="Pesquise o fornecedor" required>
+            <input type="submit" value="pesquisar">
+        </form>
+    </div>
+    <h1>Listagem de Fornecedores</h1>
+        <?php
+        $resultado = '%%';
+        if (isset($_POST["resultado"])) {
+            $resultado = '%' . $_POST["resultado"] . '%';
+        }
+        try {
+            $dsn = "mysql:host=Localhost;dbname=formulario;charset=utf8";
+            $pdo = new PDO($dsn, 'root', '');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "SELECT nome, cnpj, cep, contato, email, tipo FROM fornecedor WHERE nome LIKE :resultado OR cnpj LIKE :resultado;";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':resultado', $resultado, PDO::PARAM_STR);
+            $stmt->execute();
+            $fornecedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($fornecedores)) {
+                echo "<table border='1'>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CNPJ</th>
+                            <th>CEP</th>
+                            <th>Contato</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                        </tr>";
+
+                foreach ($fornecedores as $fornecedor) {
+                    echo "<tr>
+                            <td>" . $fornecedor["nome"] . "</td>
+                            <td>" . $fornecedor["cnpj"] . "</td>
+                            <td>" . $fornecedor["cep"] . "</td>
+                            <td>" . $fornecedor["contato"] . "</td>
+                            <td>" . $fornecedor["email"] . "</td>
+                            <td>" . $fornecedor["tipo"] . "</td>
+                        </tr>";
+                }
+                echo "</table>";
+            } else {
+                echo "Nenhum fornecedor encontrado.";
+            }
+        } catch (PDOException $e) {
+            die("<script>window.alert('Erro ao consultar dados: " . $e->getMessage() . "')</script>");
+        }
+        ?>
+    </div>
+</body>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="main.js"></script>
+</html>
